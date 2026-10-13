@@ -108,7 +108,7 @@ export const backgroundWallpaper: BackgroundWallpaperConfig = {
 					name: "GitHub",
 					icon: "fa7-brands:github",
 					url: "https://github.com/liuxiangfan",
-					showName: true,
+					showName: false,
 				},
 				{
 					name: "Email",
