@@ -1,0 +1,78 @@
+# Pages CMS 配置：https://pagescms.org
+# 提交到 GitHub 仓库根目录后，在 pagescms.org 登录即可使用可视化后台
+
+media:
+  - name: assets
+    label: 媒体资源
+    input: public/assets
+    output: /assets
+
+content:
+  # 博客文章
+  - name: posts
+    label: 文章
+    path: src/content/posts
+    type: collection
+    format: yaml-frontmatter
+    view:
+      fields: [title, published, category, draft]
+      primary: title
+      secondary: published
+      sort: [published, desc]
+    fields:
+      - { name: title, label: 标题, type: string, required: true }
+      - { name: published, label: 发布日期, type: date, required: true }
+      - { name: updated, label: 更新日期, type: date, optional: true }
+      - { name: draft, label: 草稿, type: boolean, default: false }
+      - { name: description, label: 摘要, type: text, optional: true }
+      - { name: image, label: 封面图, type: image, optional: true }
+      - { name: tags, label: 标签, type: tags, default: [] }
+      - { name: category, label: 分类, type: string, optional: true }
+      - { name: slug, label: URL 别名, type: string, optional: true }
+      - { name: lang, label: 语言, type: string, optional: true }
+      - { name: pinned, label: 置顶, type: boolean, default: false }
+      - { name: author, label: 作者, type: string, optional: true }
+      - { name: series, label: 系列, type: string, optional: true }
+      - { name: seriesOrder, label: 系列序号, type: number, optional: true }
+      - { name: comment, label: 允许评论, type: boolean, default: true }
+      - { name: password, label: 访问密码, type: string, optional: true }
+      - { name: passwordHint, label: 密码提示, type: string, optional: true }
+      - { name: sourceLink, label: 原文链接, type: string, optional: true }
+      - { name: licenseName, label: 许可证名称, type: string, optional: true }
+      - { name: licenseUrl, label: 许可证链接, type: string, optional: true }
+
+  # 动态（说说）
+  - name: dynamic
+    label: 动态
+    path: src/content/dynamic
+    type: collection
+    format: yaml-frontmatter
+    view:
+      fields: [published, location, pinned]
+      primary: published
+      sort: [published, desc]
+    fields:
+      - { name: published, label: 发布时间, type: datetime, required: true }
+      - { name: pinned, label: 置顶, type: boolean, default: false }
+      - { name: location, label: 位置, type: string, optional: true }
+
+  # 项目展示
+  - name: projects
+    label: 项目
+    path: src/content/projects
+    type: collection
+    format: yaml-frontmatter
+    view:
+      fields: [title, status, order]
+      primary: title
+      sort: [order, asc]
+    fields:
+      - { name: title, label: 项目名, type: string, required: true }
+      - { name: published, label: 发布日期, type: date, required: true }
+      - { name: draft, label: 草稿, type: boolean, default: false }
+      - { name: order, label: 排序, type: number, optional: true }
+      - { name: description, label: 描述, type: text, optional: true }
+      - { name: image, label: 封面图, type: image, optional: true }
+      - { name: tags, label: 标签, type: tags, default: [] }
+      - { name: status, label: 状态, type: string, optional: true }
+      - { name: lang, label: 语言, type: string, optional: true }
