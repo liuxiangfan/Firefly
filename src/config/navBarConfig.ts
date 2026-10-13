@@ -88,40 +88,17 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 		url: "#",
 		icon: "material-symbols:info",
 		children: [
-			// 打赏
-			LinkPresets.Sponsor,
-
 			// 关于页面
 			LinkPresets.About,
 		],
 	});
 
-	// 自定义导航栏链接
+	// 项目（站外形式导航）
 	links.push({
-		name: "链接",
-		url: "#",
-		icon: "material-symbols:link",
-		// 子菜单
-		children: [
-			{
-				name: "GitHub",
-				url: "https://github.com/liuxiangfan",
-				external: true,
-				icon: "fa7-brands:github",
-			},
-			{
-				name: "Gitee",
-				url: "https://gitee.com/CuteLeaf/Firefly",
-				external: true,
-				icon: "fa7-brands:gitee",
-			},
-			{
-				name: "Firefly文档",
-				url: "https://docs-firefly.cuteleaf.cn",
-				external: true,
-				icon: "material-symbols:docs",
-			},
-		],
+		name: "项目",
+		url: "https://blog.tsh520.cn/projects/",
+		external: true,
+		icon: "material-symbols:rocket-launch",
 	});
 
 	// 文档链接
@@ -229,12 +206,6 @@ export const LinkPresets: Record<string, NavBarLink> = {
 		url: "/myanimelist/",
 		icon: "material-symbols:menu-book",
 		pageKey: "mal",
-	},
-	Sponsor: {
-		name: "打赏",
-		url: "/sponsor/",
-		icon: "material-symbols:favorite",
-		pageKey: "sponsor",
 	},
 	About: {
 		name: "关于我",
