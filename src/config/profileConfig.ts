@@ -30,19 +30,13 @@ export const profileConfig: ProfileConfig = {
 		{
 			name: "Email",
 			icon: "fa7-solid:envelope",
-			url: "mailto:3298820094@qq.com",
+			url: "/email/",
 			showName: false,
 		},
 		{
-			name: "RSS",
-			icon: "fa7-solid:rss",
-			url: "/rss/",
-			showName: false,
-		},
-		{
-			name: "Atom",
-			icon: "fa7-solid:atom",
-			url: "/atom/",
+			name: "微信",
+			icon: "fa7-brands:weixin",
+			url: "/wechat/",
 			showName: false,
 		},
 	],

@@ -1,0 +1,37 @@
+---
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import { Icon } from "astro-icon/components";
+---
+
+<MainGridLayout title="微信" description="扫码添加微信">
+    <div class="onload-animation">
+        <!-- 标题和介绍 -->
+        <div class="card-base rounded-(--radius-large) p-8 mb-6">
+            <div class="text-center">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-(--primary) rounded-2xl mb-4">
+                    <Icon name="fa7-brands:weixin" class="text-white text-3xl" />
+                </div>
+                <div class="text-3xl font-bold text-(--primary) mb-3">微信</div>
+                <p class="text-75 max-w-2xl mx-auto">
+                    扫描下方二维码添加我的微信，请注明来意。
+                </p>
+            </div>
+        </div>
+
+        <!-- 二维码区域 -->
+        <div class="card-base rounded-(--radius-large) p-6 mb-6">
+            <div class="flex flex-col items-center">
+                <img
+                    src="/assets/images/wechat-qrcode.png"
+                    alt="微信二维码"
+                    class="w-64 h-64 rounded-xl border border-(--line-divider) object-contain"
+                    loading="lazy"
+                />
+                <p class="text-sm text-50 mt-4 flex items-center">
+                    <Icon name="material-symbols:qr-code-scanner" class="mr-1 text-(--primary)" />
+                    打开微信「扫一扫」，识别二维码添加好友
+                </p>
+            </div>
+        </div>
+    </div>
+</MainGridLayout>

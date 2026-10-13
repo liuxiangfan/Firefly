@@ -1,0 +1,114 @@
+---
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import { Icon } from "astro-icon/components";
+
+// 邮箱合集：需要增删邮箱时，直接在下面的数组里加一行即可
+const emails = [
+	{ label: "QQ 邮箱", address: "3298820094@qq.com", icon: "fa7-brands:qq" },
+	{ label: "Outlook 邮箱", address: "xiaye@msn.com", icon: "fa7-solid:envelope" },
+];
+---
+
+<MainGridLayout title="邮箱" description="我的邮箱合集">
+    <div class="onload-animation">
+        <!-- 标题和介绍 -->
+        <div class="card-base rounded-(--radius-large) p-8 mb-6">
+            <div class="text-center">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-(--primary) rounded-2xl mb-4">
+                    <Icon name="fa7-solid:envelope" class="text-white text-3xl" />
+                </div>
+                <div class="text-3xl font-bold text-(--primary) mb-3">邮箱</div>
+                <p class="text-75 max-w-2xl mx-auto">
+                    这里是我的所有邮箱，点击「复制」即可取用，也可以直接写邮件联系我。
+                </p>
+            </div>
+        </div>
+
+        <!-- 邮箱列表 -->
+        <div class="space-y-4 mb-6">
+            {emails.map((email) => (
+                <div class="card-base rounded-(--radius-large) p-6">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-(--primary) rounded-xl flex items-center justify-center mr-4">
+                                <Icon name={email.icon} class="text-white text-xl" />
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-90 mb-1">{email.label}</h3>
+                                <code class="text-sm font-mono text-75 break-all">{email.address}</code>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <a
+                                href={`mailto:${email.address}`}
+                                class="px-4 py-2 rounded-lg border border-(--line-divider) text-75 hover:text-(--primary) hover:border-(--primary) transition-all duration-200 font-medium text-sm whitespace-nowrap flex items-center"
+                            >
+                                <Icon name="fa7-solid:paper-plane" class="mr-2 text-sm" />
+                                写邮件
+                            </a>
+                            <button
+                                class="copy-email-btn px-4 py-2 bg-(--primary) text-white rounded-lg hover:opacity-80 transition-all duration-200 font-medium text-sm whitespace-nowrap"
+                                data-url={email.address}
+                                data-copied-text="已复制"
+                                data-failed-text="复制失败"
+                            >
+                                复制
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
+
+    <script>
+        function initEmailCopy() {
+            const btns = document.querySelectorAll('.copy-email-btn');
+            btns.forEach((btn) => {
+                // 移除旧的事件监听器（通过克隆节点的方式）
+                const newBtn = btn.cloneNode(true) as HTMLElement;
+                btn.parentNode?.replaceChild(newBtn, btn);
+
+                newBtn.addEventListener('click', async function (event) {
+                    const target = event.currentTarget as HTMLElement;
+                    const url = target.getAttribute('data-url');
+                    if (!url) return;
+                    try {
+                        await navigator.clipboard.writeText(url);
+                        const originalText = target.textContent;
+                        target.textContent = target.getAttribute('data-copied-text') || '';
+                        target.style.backgroundColor = 'var(--success-color, #10b981)';
+
+                        setTimeout(() => {
+                            target.textContent = originalText;
+                            target.style.backgroundColor = '';
+                        }, 2000);
+                    } catch (err) {
+                        console.error("Copy failed:", err);
+                        const originalText = target.textContent;
+                        target.textContent = target.getAttribute('data-failed-text') || '';
+                        setTimeout(() => {
+                            target.textContent = originalText;
+                        }, 2000);
+                    }
+                });
+            });
+        }
+
+        // 立即初始化（支持直接访问页面和刷新）
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initEmailCopy);
+        } else {
+            // DOM 已加载，直接初始化
+            setTimeout(initEmailCopy, 0);
+        }
+
+        // 支持 Swup 客户端路由（如果存在）
+        if (typeof window !== 'undefined' && (window as any).swup) {
+            (window as any).swup.hooks.on('content:replace', () => {
+                // 延迟执行以确保 DOM 已更新
+                setTimeout(initEmailCopy, 100);
+            });
+        }
+    </script>
+</MainGridLayout>
