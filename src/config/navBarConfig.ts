@@ -93,12 +93,11 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 		],
 	});
 
-	// 项目（站外形式导航）
+	// 导航（网站导航页）
 	links.push({
-		name: "项目",
-		url: "https://blog.tsh520.cn/projects/",
-		external: true,
-		icon: "material-symbols:rocket-launch",
+		name: "导航",
+		url: "/projects/",
+		icon: "material-symbols:public",
 	});
 
 	// 文档链接
