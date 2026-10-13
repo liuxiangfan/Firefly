@@ -48,7 +48,7 @@ export const siteConfig: SiteConfig = {
 	subtitle: "记录技术与生活",
 
 	// 站点 URL
-	site_url: "https://firefly.cuteleaf.cn",
+	site_url: "https://blog.070616.xyz",
 
 	// 站点描述
 	description:

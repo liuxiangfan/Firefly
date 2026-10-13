@@ -65,9 +65,6 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 			// 相册
 			LinkPresets.Gallery,
 
-			// 书签导航
-			LinkPresets.Booknav,
-
 			// 哔哩哔哩追番
 			LinkPresets.Bilibili,
 
@@ -93,11 +90,12 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 		],
 	});
 
-	// 导航（网站导航页）
+	// 导航（网站导航页，链接目录）
 	links.push({
 		name: "导航",
-		url: "/projects/",
+		url: "/booknav/",
 		icon: "material-symbols:public",
+		pageKey: "booknav",
 	});
 
 	// 文档链接
