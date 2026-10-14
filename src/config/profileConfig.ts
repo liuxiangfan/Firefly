@@ -9,10 +9,10 @@ export const profileConfig: ProfileConfig = {
 	avatar: "assets/images/avatar.avif",
 
 	// 名字
-	name: "刘相凡",
+	name: "Myself",
 
 	// 个人签名
-	bio: "你好，我是刘相凡。",
+	bio: "你好，我是Myself。",
 
 	// 链接配置
 	// 已经预装的图标集：fa7-brands，fa7-regular，fa7-solid，material-symbols，simple-icons

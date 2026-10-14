@@ -79,6 +79,14 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 		],
 	});
 
+	// 导航（网站导航页，链接目录）
+	links.push({
+		name: "导航",
+		url: "/booknav/",
+		icon: "material-symbols:public",
+		pageKey: "booknav",
+	});
+
 	// 关于及其子菜单
 	links.push({
 		name: "关于",
@@ -88,14 +96,6 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 			// 关于页面
 			LinkPresets.About,
 		],
-	});
-
-	// 导航（网站导航页，链接目录）
-	links.push({
-		name: "导航",
-		url: "/booknav/",
-		icon: "material-symbols:public",
-		pageKey: "booknav",
 	});
 
 	// 文档链接
