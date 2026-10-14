@@ -36,20 +36,6 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 		],
 	});
 
-	//社交及其子菜单
-	links.push({
-		name: "社交",
-		url: "#",
-		icon: "material-symbols:group",
-		children: [
-			// 友链
-			LinkPresets.Friends,
-
-			// 留言
-			LinkPresets.Guestbook,
-		],
-	});
-
 	// 我的及其子菜单
 	links.push({
 		name: "我的",
@@ -59,8 +45,13 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 			// 动态
 			LinkPresets.Dynamic,
 
-			// 项目
-			LinkPresets.Projects,
+			// 导航（网站导航页，链接目录）
+			{
+				name: "导航",
+				url: "/booknav/",
+				icon: "material-symbols:public",
+				pageKey: "booknav",
+			},
 
 			// 相册
 			LinkPresets.Gallery,
@@ -79,12 +70,12 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 		],
 	});
 
-	// 导航（网站导航页，链接目录）
+	// 项目展示页
 	links.push({
-		name: "导航",
-		url: "/booknav/",
-		icon: "material-symbols:public",
-		pageKey: "booknav",
+		name: "项目",
+		url: "/projects/",
+		icon: "material-symbols:rocket-launch",
+		pageKey: "projects",
 	});
 
 	// 关于及其子菜单
@@ -95,6 +86,12 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 		children: [
 			// 关于页面
 			LinkPresets.About,
+
+			// 友链
+			LinkPresets.Friends,
+
+			// 留言
+			LinkPresets.Guestbook,
 		],
 	});
 
