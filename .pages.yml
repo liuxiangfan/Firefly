@@ -88,6 +88,10 @@ content:
             label: 置顶
             type: boolean
             default: false
+          - name: order
+            label: 排序权重
+            type: number
+            description: 数字越大越靠前；留空则按发布日期排列（置顶优先于本字段）
           - name: description
             label: 摘要
             type: text
@@ -277,3 +281,19 @@ content:
             type: code
             options:
               format: md
+
+      # 系列展示顺序 src/data/series-order.json
+      # 直接用鼠标拖拽调整上下顺序；数组越靠前，/series/ 页显示越靠前
+      # 未列出的系列会自动排在后面（按文章数降序）
+      - name: series-order
+        label: 系列顺序
+        description: 拖拽调整系列在 /series/ 页面的展示顺序
+        type: file
+        path: src/data/series-order.json
+        format: json
+        list: true
+        fields:
+          - name: series
+            label: 系列名称
+            type: string
+            description: 必须与文章的「系列」字段完全一致

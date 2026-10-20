@@ -2,6 +2,17 @@ import { type CollectionEntry, getCollection } from "astro:content";
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import { getCategoryUrl } from "@utils/url-utils";
+import seriesOrderData from "@/data/series-order.json";
+
+// 手动系列顺序：数组靠前即展示靠前；未列出的系列自动排在后面
+// 兼容两种写法：[{ series: "名称" }]（后台保存格式）或 ["名称"]（手写格式）
+const seriesOrder: string[] = Array.isArray(seriesOrderData)
+	? (seriesOrderData as (string | { series?: string })[])
+			.map((item) =>
+				typeof item === "string" ? item : (item?.series ?? ""),
+			)
+			.filter((name): name is string => Boolean(name))
+	: [];
 
 // // Retrieve posts and sort them by publication date
 async function getRawSortedPosts() {
@@ -14,7 +25,19 @@ async function getRawSortedPosts() {
 		if (a.data.pinned && !b.data.pinned) return -1;
 		if (!a.data.pinned && b.data.pinned) return 1;
 
-		// 如果置顶状态相同，则按发布日期排序
+		// 其次按手动排序权重降序（越大越靠前，未设置排最后）
+		// 判断是否设置必须用 !== undefined，否则 0 会被当作「未设置」排到最后
+		const ao = a.data.order;
+		const bo = b.data.order;
+		if (ao !== undefined && bo !== undefined) {
+			if (ao !== bo) return bo - ao;
+		} else if (ao === undefined && bo !== undefined) {
+			return 1;
+		} else if (ao !== undefined && bo === undefined) {
+			return -1;
+		}
+
+		// 最后按发布日期排序
 		const dateA = new Date(a.data.published);
 		const dateB = new Date(b.data.published);
 		return dateA > dateB ? -1 : 1;
@@ -148,7 +171,16 @@ export async function getSeriesList(): Promise<Series[]> {
 		seriesList.push({ name, count: posts.length, posts });
 	}
 
-	seriesList.sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
+	seriesList.sort((a, b) => {
+		// 优先按 src/data/series-order.json 中的手动顺序排列（数组靠前即优先）
+		const ia = seriesOrder.indexOf(a.name);
+		const ib = seriesOrder.indexOf(b.name);
+		if (ia !== -1 && ib !== -1) return ia - ib;
+		if (ia !== -1) return -1;
+		if (ib !== -1) return 1;
+		// 未在手动列表中的系列：按文章数降序、名称兜底
+		return b.count - a.count || a.name.localeCompare(b.name);
+	});
 	return seriesList;
 }
 export type Tag = {

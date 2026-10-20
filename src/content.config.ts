@@ -23,6 +23,7 @@ type PostData = {
 	passwordHint: string;
 	series: string;
 	seriesOrder?: number;
+	order?: number;
 	prevTitle: string;
 	prevSlug: string;
 	nextTitle: string;
@@ -81,6 +82,7 @@ const postsCollection: ContentCollection<PostData> = defineCollection({
 		passwordHint: z.string().optional().default(""),
 		series: z.string().optional().default(""),
 		seriesOrder: z.number().optional(),
+		order: z.number().optional(),
 
 		/* For internal use */
 		prevTitle: z.string().default(""),
