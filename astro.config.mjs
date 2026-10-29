@@ -23,6 +23,7 @@ import rehypeComponents from "rehype-components"; /* Render the custom directive
 import rehypeKatex from "rehype-katex";
 import rehypeSlug from "rehype-slug";
 import remarkAdmonitionToBlockquoteCallout from "remark-admonition-to-blockquote-callout";
+import remarkBreaks from "remark-breaks";
 import remarkDirective from "remark-directive"; /* Handle directives */
 import remarkMath from "remark-math";
 import remarkSectionize from "remark-sectionize";
@@ -286,6 +287,8 @@ export default defineConfig({
 	markdown: {
 		processor: unified({
 			remarkPlugins: [
+				// 把段落内的软换行渲染成 <br>，与 Obsidian 默认的换行行为保持一致
+				remarkBreaks,
 				...(siteConfig.post.rehypeCallouts.enablePythonMarkdownAdmonitions !==
 				false
 					? [remarkAdmonitionToBlockquoteCallout]
