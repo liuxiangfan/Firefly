@@ -29,6 +29,8 @@ __initial_sp
 	+ Stack_Mem：标号，栈空间的起始地址（栈底）
 	+ SPACE：伪指令，**预留一块未初始化的内存**
 + `__initial_sp`：位于栈空间之后，表示栈顶地址。Cortex-M 的栈是向下增长的，所以复位后初始 SP 设置为这个地址
+>为什么一个`__initial_sp`就直接表示了栈顶地址并计算出来了?
+>	`__initial_sp`是一个标签，只是给当前位置起了一个名字
 ## 堆配置
 ```asm
 Heap_Size       EQU     0x00000200
@@ -55,7 +57,8 @@ __heap_limit
 - `THUMB`：后续代码使用 Thumb 指令集。Cortex-M4 只支持 Thumb/Thumb-2 指令
 >栈段已经有 `ALIGN=3`，为什么还要 `PRESERVE8`?
 >	`ALIGN=3`只能保证`STACK`段的起始地址是8字节对齐的
->	`PRESERVE8`保证在程序运行中，栈指针是9字节对齐的
+>	`PRESERVE8`声明的是一个**约定**：这段代码在**公共接口（函数调用/返回）处**能保证 `SP` 是 8 字节对齐的。
+>	在函数内部，`SP`只需要保持4字节对齐即可
 ## 中断向量表
 ```asm
                 AREA    RESET, DATA, READONLY
